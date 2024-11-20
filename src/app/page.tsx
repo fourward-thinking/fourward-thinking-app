@@ -1,18 +1,18 @@
-import { Col, Container, Image, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 /** The Home page. */
 const Home = () => (
   <main>
     <Container fluid className="landing-page text-center">
       {/* Banner */}
-      <Row className="text-center py-5" style={{ backgroundColor: "#356943", color: "white" }}>
+      <Row className="text-center py-5" style={{ backgroundColor: '#356943', color: 'white' }}>
         <Col>
           <h1 className="display-4 fw-bold">Fourward Thinking</h1>
           <h6>Study Sessions at UHM</h6>
         </Col>
       </Row>
       {/* Sign-in Section */}
-      <Row className="text-center py-4" style={({ backgroundColor: "#fff8f0"})}>
+      <Row className="text-center py-4" style={({ backgroundColor: '#fff8f0' })}>
         <Col>
           <p className="fw-bold">Start by Signing in...</p>
         </Col>
