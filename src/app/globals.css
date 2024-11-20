@@ -62,3 +62,63 @@ body {
   text-indent: 0.261rem !important;
   font-weight: 200 !important;
 }
+
+/* TAILWIND STUFF */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply bg-lightgray-50;
+}
+
+input {
+  @apply px-2;
+}
+
+.fc-header-toolbar {
+  display: inline-block;
+  padding: 4px 4px;
+
+  @apply space-x-8;
+}
+
+.fc-day {
+  @apply m-8;
+}
+
+.fc-scrollgrid-sync-table {
+  @apply w-full;
+}
+
+.fc-view {
+  @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white;
+}
+
+.fc-h-event {
+  @apply bg-darkgreen-500 border border-darkgreen-600;
+}
+
+.fc .fc-daygrid-day .fc-day-today {
+  @apply bg-darkgreen-100;
+}
+
+.fc .fc-button {
+  @apply bg-darkgreen-800 hover:bg-darkgreen-900;
+}
+
+.fc .fc-button-primary:not(:disabled) .fc-button-factive {
+  @apply bg-darkgreen-600;
+}
+
+.fc .fc-button-primary:disabled {
+  @apply bg-darkgreen-600;
+}
+
+.fc-v-event {
+  @apply bg-darkgreen-500 border border-darkgreen-600;
+}
