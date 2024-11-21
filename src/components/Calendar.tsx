@@ -10,12 +10,12 @@ import interactionPlugin from '@fullcalendar/interaction';
 export default function Calendar() {
   return (
     <>
-      <nav className="flex justify-between mb-12 border-b border-darkgreen-100 p-4">
-        <h1 className="font-bold text-2x1 text-gray-700">Calendar</h1>
+      <nav className="calendar-nav">
+        <h1 className="calendar-title">Calendar</h1>
       </nav>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="grid grid-cols-10">
-          <div className="col-span-8">
+      <main className="calendar-main">
+        <div className="calendar-grid-container">
+          <div className="calendar-calendar">
             <FullCalendar
               plugins={[
                 dayGridPlugin,
