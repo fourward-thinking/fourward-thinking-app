@@ -26,12 +26,18 @@ const LandingPage = () => (
       </Col>
       <Col xs={5} className="d-flex justify-content-center">
         <Row className="text-window">
-          <h1 className="landing-large-font">Study Better Together</h1>
+          <h1 className="landing-large-font fw-bold">Study Better Together</h1>
           <h3 className="landing-small-font">
             Your ultimate hub for collaborative learning! Connect with fellow students, join or create study sessions,
             enhance your learning experience.
           </h3>
-          <Button className="button-one">Find Sessions...</Button>
+          <Button
+            className="button-one"
+            onClick={() => {
+            }}
+          >
+            Find Sessions...
+          </Button>
         </Row>
       </Col>
     </Row>
