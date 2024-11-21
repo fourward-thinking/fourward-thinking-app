@@ -36,7 +36,7 @@ const LandingPage = () => (
             onClick={() => {
             }}
           >
-            Find Sessions...
+            Find Study Sessions...
           </Button>
         </Row>
       </Col>
