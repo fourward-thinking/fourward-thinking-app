@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
             <Nav.Link id="courses-nav" href="/courses" active={pathName === '/'}>
               Courses
             </Nav.Link>
-            <Nav.Link id="create-session-nav" href="/" active={pathName === '/'}>
+            <Nav.Link id="create-session-nav" href="/createsession" active={pathName === '/'}>
               Create Session
             </Nav.Link>
             <Nav.Link id="profile-nav" href="/profile" active={pathName === '/'}>
