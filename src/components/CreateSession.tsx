@@ -1,4 +1,5 @@
 'use client';
+
 import { Col, Container, Row, Button, Form } from 'react-bootstrap';
 
 /** The Create Session page allows users to input session details and create a session. */
