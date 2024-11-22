@@ -5,10 +5,8 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-weight: 300px;
-  background-color: #fff1e0 !important;
+  font-weight: 300px
 }
-
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
@@ -143,7 +141,7 @@ body {
 
 .fc .fc-button-primary { color: #FFFFFF; background-color: #264d38 !important; border-color: #FFFFFF !important; }
 
-/* Profile */
+/* issue-05.1 */
 .profile-container {
   width: 80%;
   max-width: 800px;
@@ -154,6 +152,7 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Profile */
 .profile-avatar-container {
   text-align: center;
   margin-bottom: 20px; /* Add space below the image and name */
@@ -205,41 +204,8 @@ body {
   font-size: 1rem;
 }
 
-/* Create Session Page */
-.container#create-session {
-  background-color: #2b5740 !important;
-  color: white;
-  border-radius: 10px;
-  padding: 5rem;
-}
-
-.container#create-session h1 {
-  font-weight: 300 !important;
-  padding-bottom: 3rem;
-  letter-spacing: 0.1rem;
-}
-
-.container#create-session p,
-.container#create-session label {
-  font-weight: 200 !important;
-  letter-spacing: 0.05rem;
-  margin-bottom: 0px;
-  margin-top: 1rem;
-}
-
-#preview-button {
-  background-color: #65aa87 !important;
-  border-color:  #65aa87!important;
-  letter-spacing: 0.075rem !important;
-  margin-right: 2rem;
-}
-
-.create-session-button.mr-2 {
-  letter-spacing: 0.075rem !important;
-  margin-right: 1rem;
-}
-
 /* COURSES */
+
 .courses-box {
   flex: 0 0 calc(20% - 1rem); /* Each box takes 25% of the row width, minus spacing */
   max-width: calc(20% - 1rem);
