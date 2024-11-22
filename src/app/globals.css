@@ -5,7 +5,8 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-weight: 300px
+  font-weight: 300px;
+  background-color: #fff1e0 !important;
 }
 .wrapper {
   box-sizing: border-box;
