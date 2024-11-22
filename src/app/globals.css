@@ -198,3 +198,35 @@ body {
   border: 10px solid #264d38;
   margin: 0rem;
 }
+
+/* Create Session Page */
+.container#create-session {
+  background-color: #2b5740 !important;
+  color: white;
+  border-radius: 10px;
+  padding: 5rem;
+  h1 {
+    font-weight: 300 !important;
+    padding-bottom: 3rem;
+    letter-spacing: 0.1rem;
+  }
+
+  p, label {
+    font-weight: 200 !important;
+    letter-spacing: 0.05rem;
+    margin-bottom: 0px;
+    margin-top: 1rem;
+  }
+}
+
+#preview-button {
+  background-color: #65aa87 !important;
+  border-color:  #65aa87!important;
+  letter-spacing: 0.075rem !important;
+  margin-right: 2rem;
+}
+
+.create-session-button.mr-2 {
+  letter-spacing: 0.075rem !important;
+  margin-right: 1rem;
+}
