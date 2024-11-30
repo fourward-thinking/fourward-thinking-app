@@ -16,6 +16,12 @@ body {
   flex-direction: column;
 }
 
+button {
+  background-color: #50a378 !important;
+  border-color: #50a378!important;
+  letter-spacing: 0.075rem !important;
+}
+
 /* Component Styles */
 /* FOOTER */
 #footer, .navbar {
@@ -44,6 +50,26 @@ body {
   letter-spacing: 0.125rem !important;
   text-indent: 0.261rem !important;
   font-weight: 200 !important;
+}
+
+/* Session Details Page */
+.container#session-details {
+  background-color: #2b5740 !important;
+  color: white;
+  border-radius: 10px;
+  padding: 5rem;
+}
+
+.container#session-details h1 {
+  font-weight: 300 !important;
+  padding-bottom: 3rem;
+  letter-spacing: 0.1rem;
+}
+
+.container#session-details p {
+  font-weight: 200 !important;
+  padding-bottom: 0.5rem;
+  letter-spacing: 0.05rem;
 }
 
 /* LANDING PAGE */
@@ -141,7 +167,11 @@ body {
   overflow: hidden; /* Hide overflow content */
 }
 
-.fc .fc-button-primary { color: #FFFFFF; background-color: #264d38 !important; border-color: #FFFFFF !important; }
+.fc .fc-button-primary { 
+  color: #FFFFFF; 
+  background-color: #264d38 !important; 
+  border-color: #FFFFFF !important; 
+}
 
 /* Profile */
 .profile-container {
@@ -229,7 +259,7 @@ body {
 
 #preview-button {
   background-color: #65aa87 !important;
-  border-color:  #65aa87!important;
+  border-color: #65aa87!important;
   letter-spacing: 0.075rem !important;
   margin-right: 2rem;
 }
