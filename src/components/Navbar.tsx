@@ -23,14 +23,17 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            <Nav.Link id="calendar-nav" href="/" active={pathName === '/'}>
+            <Nav.Link id="calendar-nav" href="/calendar" active={pathName === '/'}>
               Calender
             </Nav.Link>
-            <Nav.Link id="courses-nav" href="/" active={pathName === '/'}>
+            <Nav.Link id="courses-nav" href="/courses" active={pathName === '/'}>
               Courses
             </Nav.Link>
-            <Nav.Link id="create-session-nav" href="/" active={pathName === '/'}>
+            <Nav.Link id="create-session-nav" href="/createsession" active={pathName === '/'}>
               Create Session
+            </Nav.Link>
+            <Nav.Link id="profile-nav" href="/profile" active={pathName === '/'}>
+              Profile
             </Nav.Link>
             {currentUser
               ? [
