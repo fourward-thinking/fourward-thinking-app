@@ -2,6 +2,7 @@
 
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const LandingPage = () => (
   <Container fluid className="landing-page text-center p-0">
@@ -24,7 +25,7 @@ const LandingPage = () => (
           />
         </div>
       </Col>
-      <Col xs={5} className="d-flex justify-content-center">
+      <Col xs={6} className="d-flex justify-content-center">
         <Row className="text-window">
           <h1 className="landing-large-font fw-bold">Study Better Together</h1>
           <h3 className="landing-small-font">
@@ -36,9 +37,17 @@ const LandingPage = () => (
             onClick={() => {
             }}
           >
-            Find Study Sessions...
+            <Link href="/createsession" style={{ color: 'white', textDecoration: 'none' }}>Find Study Sessions...</Link>
           </Button>
         </Row>
+      </Col>
+    </Row>
+    <Row>
+      <Col className="justify-content-center p-0 account-signup">
+        <p>
+          To login or sign up, click &nbsp;
+          <a href="/auth/signin">here.</a>
+        </p>
       </Col>
     </Row>
   </Container>

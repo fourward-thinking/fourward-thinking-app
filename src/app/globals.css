@@ -86,12 +86,12 @@ button {
 .example-windows-section {
   display: flex;
   height: 70vh;
-  background-color: #fff8f0;
+  background-color: #fff1e0;
   overflow: hidden;
 }
 
 .text-window {
-  background-color: #fff8f0;
+  background-color: #fff1e0;
   display: flex;
   text-align: left;
   align-items: center;
@@ -127,6 +127,11 @@ button {
   max-width: 500px !important;
 }
 
+.account-signup {
+  background-color: #356943 !important;
+  color: white;
+}
+
 /* CALENDAR */
 .calendar-nav {
   display: flex;
@@ -147,7 +152,7 @@ button {
   justify-content: center;
   max-height: 108vh;
   padding: 2rem;
-  background-color: #fff8f0;
+  background-color: #fff1e0;
 }
 
 .calendar-grid-container {
