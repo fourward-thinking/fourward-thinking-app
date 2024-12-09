@@ -22,7 +22,6 @@ const ListPage = async () => {
   console.log('User ID:', userId); // Log the userId to make sure it's correct
 
   // Fetch sessions for the logged-in user (sessionHostId is from session.user.id)
-  // Fetch all sessions, not filtering by sessionHostId
   const sessions = await prisma.session.findMany({
     include: {
       participants: {
@@ -35,8 +34,6 @@ const ListPage = async () => {
 
   console.log('All fetched sessions:', sessions); // Log all fetched sessions
 
-  console.log('Fetched sessions:', sessions); // Log the fetched sessions to check the result
-
   return (
     <main>
       <Container id="list" fluid className="py-3">
@@ -47,7 +44,7 @@ const ListPage = async () => {
               <thead>
                 <tr>
                   <th>Session Name</th>
-                  <th>Date</th>
+                  <th>Date & Time</th>
                   <th>Applicable Class</th>
                   <th>Participants</th>
                   <th>Actions</th>
@@ -57,8 +54,10 @@ const ListPage = async () => {
                 {sessions.map((session) => (
                   <tr key={session.id}>
                     <td>{session.sessionName}</td>
-                    <td>{new Date(session.date).toLocaleDateString()}</td>
-                    {/* Remove the reference to 'time' here */}
+                    <td>
+                      {/* Format the session date and time */}
+                      {new Date(session.date).toLocaleString()}
+                    </td>
                     <td>{session.applicableClass}</td>
                     <td>
                       {session.participants.length > 0
@@ -80,7 +79,6 @@ const ListPage = async () => {
         </Row>
       </Container>
     </main>
-
   );
 };
 
