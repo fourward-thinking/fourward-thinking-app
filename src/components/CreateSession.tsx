@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Col, Container, Row, Button, Form, Alert } from 'react-bootstrap';
 
@@ -23,7 +21,7 @@ const CreateSession = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -37,7 +35,11 @@ const CreateSession = () => {
     setMessage(null);
 
     try {
-      // Assuming the sessionHostId comes from the logged-in user's session
+      // Ensure sessionDate is formatted correctly as ISO 8601 (date + time)
+      const combinedDateTime = new Date(
+        `${formData.sessionDate}T${formData.sessionTime}:00`,
+      ).toISOString(); // Convert to ISO string format for DateTime
+
       const sessionHostId = 1; // Replace with the actual user ID from authentication
 
       const response = await fetch('/api/create-session', {
@@ -46,7 +48,10 @@ const CreateSession = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
+          sessionName: formData.sessionName,
+          sessionDate: combinedDateTime, // Send combined date and time
+          sessionTime: formData.sessionTime, // Send time explicitly
+          classApplicable: formData.classApplicable,
           sessionHostId, // Pass sessionHostId
         }),
       });
@@ -67,6 +72,7 @@ const CreateSession = () => {
         setMessage(`Error: ${errorData.error || 'Unknown error occurred'}`);
       }
     } catch (error) {
+      console.error('Error creating session:', error);
       setMessage('Error: Failed to create session. Please try again later.');
     } finally {
       setIsLoading(false);

@@ -23,18 +23,17 @@ const ListPage = async () => {
 
   // Fetch sessions for the logged-in user (sessionHostId is from session.user.id)
   // Fetch all sessions, not filtering by sessionHostId
-    const sessions = await prisma.session.findMany({
-      include: {
-        participants: {
-          include: {
-            user: true, // Include user data (so you can access user.name)
-          },
+  const sessions = await prisma.session.findMany({
+    include: {
+      participants: {
+        include: {
+          user: true, // Include user data (so you can access user.name)
         },
       },
-    });
+    },
+  });
 
-console.log('All fetched sessions:', sessions); // Log all fetched sessions
-
+  console.log('All fetched sessions:', sessions); // Log all fetched sessions
 
   console.log('Fetched sessions:', sessions); // Log the fetched sessions to check the result
 
@@ -49,7 +48,6 @@ console.log('All fetched sessions:', sessions); // Log all fetched sessions
                 <tr>
                   <th>Session Name</th>
                   <th>Date</th>
-                  <th>Time</th>
                   <th>Applicable Class</th>
                   <th>Participants</th>
                   <th>Actions</th>
@@ -60,7 +58,7 @@ console.log('All fetched sessions:', sessions); // Log all fetched sessions
                   <tr key={session.id}>
                     <td>{session.sessionName}</td>
                     <td>{new Date(session.date).toLocaleDateString()}</td>
-                    <td>{new Date(session.time).toLocaleTimeString()}</td>
+                    {/* Remove the reference to 'time' here */}
                     <td>{session.applicableClass}</td>
                     <td>
                       {session.participants.length > 0
@@ -82,6 +80,7 @@ console.log('All fetched sessions:', sessions); // Log all fetched sessions
         </Row>
       </Container>
     </main>
+
   );
 };
 

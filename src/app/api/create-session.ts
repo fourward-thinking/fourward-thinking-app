@@ -3,8 +3,7 @@ import prisma from '@/lib/prisma'; // Import your Prisma client
 
 type Data = {
   sessionName: string;
-  sessionDate: string;
-  sessionTime: string;
+  sessionDate: string; // We'll just use this for the full Date
   classApplicable: string;
 };
 
@@ -19,53 +18,43 @@ export default async function handler(
   if (req.method === 'POST') {
     try {
       // Destructure data from the request body
-      const { sessionName, sessionDate, sessionTime, classApplicable, sessionHostId } = req.body;
+      const { sessionName, sessionDate, classApplicable, sessionHostId } = req.body;
 
-      // Ensure all fields are provided
-      if (!sessionName || !sessionDate || !sessionTime || !classApplicable || !sessionHostId) {
+      // Ensure all required fields are provided
+      if (!sessionName || !sessionDate || !classApplicable || !sessionHostId) {
         return res.status(400).json({ error: 'All fields are required' });
       }
 
-      // Convert sessionDate to a valid Date object (full date with time)
-      const date = new Date(sessionDate); // Date object for session date
+      // Convert sessionDate to a valid Date object
+      const date = new Date(sessionDate); // Assuming sessionDate ISO string format (e.g., "2024-12-09T10:00:00")
 
-      // Ensure the sessionTime is in the format "HH:MM" and is valid
-      const [hours, minutes]: [number, number] = sessionTime.split(':').map((str: string) => parseInt(str, 10));
+      // Ensure the sessionHostId is valid
+      const sessionHost = await prisma.user.findUnique({
+        where: { id: sessionHostId },
+      });
 
-      if (Number.isNaN(hours) || Number.isNaN(minutes)) {
-        return res.status(400).json({ error: 'Invalid time format' });
+      if (!sessionHost) {
+        return res.status(400).json({ error: 'Invalid sessionHostId, user not found.' });
       }
 
-      // Set the hours and minutes on the date to combine the date and time
-      date.setHours(hours, minutes, 0, 0); // Sets both hours and minutes
-
       // Create session in the database
-      // Ensure sessionTime is a string, not a Date object.
       const session = await prisma.session.create({
         data: {
           sessionName,
-          date, // The full DateTime (combined date and time)
-          time: sessionTime, // Ensure 'sessionTime' is a string, e.g., "14:30"
+          date, // The full DateTime (combined date and time from sessionDate)
           applicableClass: classApplicable,
-          sessionHost: {
-            connect: {
-              id: sessionHostId,
-            },
-          },
+          sessionHostId, // sessionHostId is a valid User ID
+          // sessionHost will be automatically set via sessionHostId
         },
       });
 
       // Convert date to string in "YYYY-MM-DD" format for response
       const formattedDate = session.date.toISOString().split('T')[0]; // Get the date part as string
 
-      // Ensure session.time is a string (e.g., "14:30") before returning
-      const sessionTimeFormatted = session.time.toString();
-
-      // Return success response with only the necessary data (using property shorthand)
+      // Return success response with only the necessary data
       return res.status(200).json({
         sessionName,
         sessionDate: formattedDate, // Format the date to string (YYYY-MM-DD)
-        sessionTime: sessionTimeFormatted, // Ensure the time is returned as a string (e.g., "14:30")
         classApplicable: session.applicableClass,
       });
     } catch (error) {

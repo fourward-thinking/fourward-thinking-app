@@ -1,26 +1,54 @@
-// src/app/api/create-session/route.ts
-import prisma from '@/lib/prisma';
+/* eslint-disable import/prefer-default-export */
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma'; // Import your Prisma client
 
-export async function POST(req: Request) {
-  console.log('POST request received'); // Log to check if the function is triggered
+// Handle the POST request
+export const POST = async (req: Request) => {
   try {
-    const { sessionName, sessionDate, sessionTime, classApplicable } = await req.json();
-    const newSession = await prisma.session.create({
+    const { sessionName, sessionDate, sessionTime, classApplicable, sessionHostId } = await req.json();
+
+    // Check for missing fields
+    if (!sessionName || !sessionDate || !sessionTime || !classApplicable || !sessionHostId) {
+      return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+    }
+
+    // Convert sessionDate to a valid Date object
+    const date = new Date(sessionDate); // Date object for session date
+    if (Number.isNaN(date.getTime())) {
+      return NextResponse.json({ error: 'Invalid date format' }, { status: 400 });
+    }
+
+    // Ensure the sessionTime is in the correct format (HH:MM)
+    const [hours, minutes]: [number, number] = sessionTime.split(':').map((str: string) => parseInt(str, 10));
+
+    if (Number.isNaN(hours) || Number.isNaN(minutes)) {
+      return NextResponse.json({ error: 'Invalid time format' }, { status: 400 });
+    }
+
+    // Set the time on the date object
+    date.setHours(hours, minutes, 0, 0);
+
+    // Create session in the database
+    const session = await prisma.session.create({
       data: {
         sessionName,
-        date: new Date(sessionDate), // Ensure sessionDate is a valid date string
-        time: sessionTime, // 'sessionTime' should be a string (e.g., "14:30")
+        date, // The full DateTime (combined date and time)
         applicableClass: classApplicable,
-        sessionHostId: 1, // Replace with the actual session host ID from your auth system
+        sessionHost: {
+          connect: { id: sessionHostId },
+        },
       },
     });
 
-    return new Response(JSON.stringify(newSession), { status: 201 });
+    // Return success response with only the necessary data
+    return NextResponse.json({
+      sessionName,
+      sessionDate: session.date.toISOString().split('T')[0], // Format date
+      sessionTime: session.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), // Format time
+      classApplicable: session.applicableClass,
+    });
   } catch (error) {
     console.error('Error creating session:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to create session.' }),
-      { status: 500 },
-    );
+    return NextResponse.json({ error: 'Failed to create session' }, { status: 500 });
   }
-}
+};

@@ -29,8 +29,7 @@ model Participant {
 model Session {
   id              Int           @id @default(autoincrement())
   sessionName     String
-  date            DateTime
-  time            String
+  date            DateTime      // Keep this as DateTime for combined date + time
   applicableClass String
   sessionHost     User          @relation("SessionHost", fields: [sessionHostId], references: [id]) // Match the @relation name
   sessionHostId   Int
