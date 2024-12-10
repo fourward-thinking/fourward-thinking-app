@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import prisma from './prisma';
 
 const createSession = async (sessionData: any) => {
@@ -29,5 +30,16 @@ const createUser = async (userData: { email: string; password: string }) => {
 };
 
 export default createUser;
+
+export async function changePassword(credentials: { email: string; password: string }) {
+  // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
+  const password = await hash(credentials.password, 10);
+  await prisma.user.update({
+    where: { email: credentials.email },
+    data: {
+      password,
+    },
+  });
+}
 
 export { createSession, createUser };
