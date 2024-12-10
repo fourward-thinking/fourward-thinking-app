@@ -12,4 +12,22 @@ const createSession = async (sessionData: any) => {
   }
 };
 
-export default createSession;
+const createUser = async (userData: { email: string; password: string }) => {
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email: userData.email,
+        password: userData.password,
+        role: 'USER',
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error('Error creating user:', error);
+    throw error;
+  }
+};
+
+export default createUser;
+
+export { createSession, createUser };
