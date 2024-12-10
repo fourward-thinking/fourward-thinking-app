@@ -1,7 +1,9 @@
+// @/lib/dbActions.ts
+
 import { hash } from 'bcrypt';
 import prisma from './prisma';
 
-const createSession = async (sessionData: any) => {
+export async function createSession(sessionData: any) {
   try {
     const session = await prisma.session.create({
       data: sessionData,
@@ -11,9 +13,9 @@ const createSession = async (sessionData: any) => {
     console.error('Error creating session:', error);
     throw error;
   }
-};
+}
 
-const createUser = async (userData: { email: string; password: string }) => {
+export async function createUser(userData: { email: string; password: string }) {
   try {
     const user = await prisma.user.create({
       data: {
@@ -27,19 +29,14 @@ const createUser = async (userData: { email: string; password: string }) => {
     console.error('Error creating user:', error);
     throw error;
   }
-};
-
-export default createUser;
+}
 
 export async function changePassword(credentials: { email: string; password: string }) {
-  // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
+  const hashedPassword = await hash(credentials.password, 10);
   await prisma.user.update({
     where: { email: credentials.email },
     data: {
-      password,
+      password: hashedPassword,
     },
   });
 }
-
-export { createSession, createUser };
