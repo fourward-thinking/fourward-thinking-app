@@ -1,8 +1,8 @@
 /* eslint-disable arrow-body-style */
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -37,10 +37,11 @@ const authOptions: NextAuthOptions = {
           return null;
         }
 
+        // Return user data to store in the JWT token
         return {
           id: `${user.id}`,
           email: user.email,
-          randomKey: user.role,
+          randomKey: user.role, // Assuming `role` is the role of the user
         };
       },
     }),
@@ -48,36 +49,33 @@ const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-    //   error: '/auth/error',
-    //   verifyRequest: '/auth/verify-request',
-    //   newUser: '/auth/new-user'
+    // error: '/auth/error',
+    // verifyRequest: '/auth/verify-request',
+    // newUser: '/auth/new-user'
   },
   callbacks: {
     session: ({ session, token }) => {
-      // console.log('Session Callback', { session, token })
       return {
         ...session,
         user: {
           ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
+          id: token.id, // Add `id` from JWT token
+          randomKey: token.randomKey, // Add `randomKey` from JWT token
         },
       };
     },
     jwt: ({ token, user }) => {
-      // console.log('JWT Callback', { token, user })
       if (user) {
-        const u = user as unknown as any;
         return {
           ...token,
-          id: u.id,
-          randomKey: u.randomKey,
+          id: user.id, // Store user ID in the token
+          randomKey: user.randomKey, // Store user's role (randomKey) in the token
         };
       }
       return token;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET, // Add your secret here
 };
 
 export default authOptions;
