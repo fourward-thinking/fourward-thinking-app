@@ -75,7 +75,8 @@ const authOptions: NextAuthOptions = {
       return token;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET, // Add your secret here
+  // Temporary hardcoded secret for debugging
+  secret: 'your-temporary-secret-here', // Replace with a strong random secret for debugging
 };
 
 export default authOptions;
